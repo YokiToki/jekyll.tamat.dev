@@ -1,11 +1,11 @@
 #!/bin/bash
 
 jekyll build
-mv _site/ _site-multilanguage/
+rsync -av --progress _site/ _site-multilanguage/ --exclude en
 
 git checkout languge/en
 mkdir -p _site-multilanguage/en
 jekyll build
-cp -R _site/pages _site-multilanguage/en
+rsync -av --progress _site/en _site-multilanguage/en
 
 git checkout master
