@@ -28,7 +28,6 @@ markdown_ext:     markdown,mkdown,mkdn,mkd,md
 exclude:
   - _drafts
   - build.sh
-  - CNAME
   - LICENSE
   - README.md
 
