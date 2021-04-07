@@ -1,0 +1,57 @@
+name: Distribution
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-ru:
+    name: Build Russian 🇷🇺
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Build jekyll
+        uses: fabacab/jekyll-builder-for-github-pages-action@v1
+      - name: Prepare artifacts
+        run: rsync -av --progress _site/ _site-multilanguage/ --exclude en
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: _site-multilanguage
+          retention-days: 1
+  build-en:
+    name: Build English 🇬🇧
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: language/en
+      - name: Build jekyll
+        uses: fabacab/jekyll-builder-for-github-pages-action@v1
+      - name: Prepare artifacts
+        run: rsync -av --progress _site/ _site-multilanguage/ --exclude en
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: en
+          path: _site/en/
+          retention-days: 1
+  deploy:
+    name: Deploy 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts/
+      - name: Prepare artifacts
+        run: mv artifacts/en artifacts/build
+      - name: publish
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: artifacts/build
