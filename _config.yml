@@ -28,10 +28,18 @@ markdown_ext:     markdown,mkdown,mkdn,mkd,md
 exclude:
   - _drafts
 
+languages: ["ru", "en"]
+exclude_from_localizations: ["assets", "CNAME"]
+defaultLang: ru
+languageNames:
+  ru: RU
+  en: EN
+
 collections:
   pages:
     output: true
     permalink: /:collection/:path/
+    permalink_en: /en/:collection/:path/
 
 destination:      ./_site
 incremental:      false
@@ -39,3 +47,4 @@ regenerate:       true
 
 plugins:
   - jemoji
+  - jekyll-multiple-languages-plugin
