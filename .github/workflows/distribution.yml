@@ -63,13 +63,15 @@ jobs:
     needs: [ build-ru, build-en ]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           path: artifacts/
       - name: Prepare artifacts
         run: mv artifacts/en artifacts/build
-      - name: publish
+      - name: Publish
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
