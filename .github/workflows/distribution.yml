@@ -12,12 +12,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
-      - name: Build jekyll
-        uses: fabacab/jekyll-builder-for-github-pages-action@v1
+      - name: Setup ruby
+        uses: actions/setup-ruby@v1
         with:
-          pre_build_commands: |
-            gem install jemoji
-            gem install jekyll-multiple-languages-plugin
+          ruby-version: '2.5'
+      - name: Install gems
+        run: |
+          gem install jekyll
+          gem install jemoji
+          gem install jekyll-multiple-languages-plugin
+      - name: Build jekyll
+        run: jekyll build
       - name: Prepare artifacts
         run: rsync -av --progress _site/ _site-multilanguage/ --exclude en
       - name: Archive artifacts
@@ -34,12 +39,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: language/en
-      - name: Build jekyll
-        uses: fabacab/jekyll-builder-for-github-pages-action@v1
+      - name: Setup ruby
+        uses: actions/setup-ruby@v1
         with:
-          pre_build_commands: |
-            gem install jemoji
-            gem install jekyll-multiple-languages-plugin
+          ruby-version: '2.5'
+      - name: Install gems
+        run: |
+          gem install jekyll
+          gem install jemoji
+          gem install jekyll-multiple-languages-plugin
+      - name: Build jekyll
+        run: jekyll build
       - name: Prepare artifacts
         run: rsync -av --progress _site/ _site-multilanguage/ --exclude en
       - name: Archive artifacts
