@@ -14,6 +14,10 @@ jobs:
           ref: master
       - name: Build jekyll
         uses: fabacab/jekyll-builder-for-github-pages-action@v1
+        with:
+          pre_build_commands: |
+            gem install jemoji
+            gem install jekyll-multiple-languages-plugin
       - name: Prepare artifacts
         run: rsync -av --progress _site/ _site-multilanguage/ --exclude en
       - name: Archive artifacts
@@ -32,6 +36,10 @@ jobs:
           ref: language/en
       - name: Build jekyll
         uses: fabacab/jekyll-builder-for-github-pages-action@v1
+        with:
+          pre_build_commands: |
+            gem install jemoji
+            gem install jekyll-multiple-languages-plugin
       - name: Prepare artifacts
         run: rsync -av --progress _site/ _site-multilanguage/ --exclude en
       - name: Archive artifacts
