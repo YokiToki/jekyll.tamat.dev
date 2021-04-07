@@ -42,6 +42,7 @@ jobs:
           retention-days: 1
   deploy:
     name: Deploy 🚀
+    needs: [ build-ru, build-en ]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
