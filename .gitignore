@@ -3,3 +3,4 @@ _site-multilanguage/
 _draft/
 .idea/
 .jekyll-cache/
+build.sh
